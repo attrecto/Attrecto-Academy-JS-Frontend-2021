@@ -25,7 +25,6 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        Hello
         <Navbar />
         <div className="container d-flex justify-content-center">
           <div className="card m-5 p-4 bg-white shadow text-center">
