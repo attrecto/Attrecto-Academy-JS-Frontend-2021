@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Page from "../../components/page/Page";
+import Button from "../../components/button/Button";
 
 interface HomeProps {}
 interface HomeState {
@@ -29,25 +30,25 @@ class Home extends Component<HomeProps, HomeState> {
           <div className="card m-5 p-4 bg-white shadow text-center">
             <h5>Counter: {this.state.counter}</h5>
             <div className="d-flex">
-              <button
-                className="btn btn-primary"
+              <Button
                 onClick={() => {
                   this.setCounterValue(true);
                 }}
               >
                 Increase +
-              </button>
-              <button
-                className="btn btn-secondary mx-2"
+              </Button>
+              <Button
+                color="secondary"
+                className="mx-2"
                 onClick={() => {
                   this.setCounterValue(false);
                 }}
               >
                 Decrease +
-              </button>
-              <button className="btn btn-danger" onClick={this.clearValue}>
+              </Button>
+              <Button color="danger" onClick={this.clearValue}>
                 Clear
-              </button>
+              </Button>
             </div>
           </div>
         </div>

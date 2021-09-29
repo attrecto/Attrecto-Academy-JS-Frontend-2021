@@ -1,0 +1,19 @@
+.UserCard {
+  &:hover {
+    cursor: pointer;
+    background: whitesmoke;
+    text-decoration: none;
+  }
+
+  .DeleteIcon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0.5;
+    color: indianred;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
