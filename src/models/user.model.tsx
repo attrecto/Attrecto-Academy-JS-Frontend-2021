@@ -9,3 +9,5 @@ export interface UserModel {
   image: string;
   badges: UserBadgeModel[];
 }
+
+export interface UserFormValues extends Omit<UserModel, "id" | "createAt"> {}
