@@ -10,9 +10,13 @@ import Button from "../../components/button/Button";
 import { UserModel } from "../../models/user.model";
 import { usersService } from "../../service/users.service";
 import classes from "./Users.module.scss";
+import { BadgeModel } from "../../models/badge.model";
+import { badgeService } from "../../service/badges.service";
+import Badge from "../../components/badge/Badge";
 
 const Users: FC = () => {
   const [users, setUsers] = useState<UserModel[]>([]);
+  const [badges, setBadges] = useState<BadgeModel[]>([]);
   const { push } = useHistory();
 
   const fetchUsers = useCallback(async () => {
@@ -20,9 +24,15 @@ const Users: FC = () => {
     setUsers(response);
   }, []);
 
+  const fetchBadges = useCallback(async () => {
+    const response = await badgeService.getBadges();
+    setBadges(response);
+  }, []);
+
   useEffect(() => {
     fetchUsers();
-  }, [fetchUsers]);
+    fetchBadges();
+  }, [fetchUsers, fetchBadges]);
 
   const goToUserPage = () => {
     push("/user");
@@ -55,19 +65,27 @@ const Users: FC = () => {
                   src={user.image}
                   alt={user.name}
                 />
-                <div className={classNames("card-body")}>
-                  <h5>{user.name}</h5>
+                <div className={classNames("card-body", classes.CardBody)}>
+                  <h5 className={classes.UserName}>{user.name}</h5>
+
+                  <Button
+                    className={classes.DeleteIcon}
+                    color="danger"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleDeleteUser(user.id.toString());
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
                 </div>
 
-                <Button
-                  className={classes.DeleteIcon}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    handleDeleteUser(user.id.toString());
-                  }}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </Button>
+                <div className={classes.Badges}>
+                  {user?.badges?.map((badge) => {
+                    const found = badges?.find((item) => item.id === badge.id);
+                    return found ? <Badge small badge={found} /> : null;
+                  })}
+                </div>
               </Link>
             </div>
           );

@@ -1,0 +1,23 @@
+.Badge {
+  background: white;
+  border-radius: 50px;
+  width: 100%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+
+  &.Small {
+    width: 50px;
+    border-radius: 25px;
+    .BadgeImage {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  .BadgeImage {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 100px;
+  }
+}
