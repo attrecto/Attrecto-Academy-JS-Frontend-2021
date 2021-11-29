@@ -4,9 +4,11 @@ import { BadgeModel } from "../../models/badge.model";
 import { badgeService } from "../../service/badges.service";
 import Badge from "../../components/badge/Badge";
 import classNames from "classnames";
+import { Link, useHistory } from "react-router-dom";
 
 const Badges: FC = () => {
   const [badges, setBadges] = useState<BadgeModel[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchBadges = async () => {

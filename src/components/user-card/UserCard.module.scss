@@ -1,8 +1,10 @@
 .UserCard {
-  &:hover {
-    cursor: pointer;
-    background: whitesmoke;
-    text-decoration: none;
+  &:not(.NotLink) {
+    &:hover {
+      cursor: pointer;
+      background: whitesmoke;
+      text-decoration: none;
+    }
   }
 
   .CardBody {
@@ -27,7 +29,7 @@
     }
   }
 
-  .Badges{
+  .Badges {
     position: absolute;
     top: 0;
     width: 100%;

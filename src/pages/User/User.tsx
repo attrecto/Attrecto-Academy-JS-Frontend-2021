@@ -73,25 +73,31 @@ const User: FC = () => {
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
-        <Form>
-          <TextField name="name" label="Name" />
-          <TextField name="image" label="Avatar url" />
-          <TagField
-            name="badges"
-            label="Badges"
-            options={badges}
-            displayKey="name"
-          />
-          <Button
-            color="secondary"
-            type="button"
-            onClick={goToUsersPage}
-            className="mr-2"
-          >
-            Back
-          </Button>
-          <Button type="submit">{id ? "Update" : "Create"}</Button>
-        </Form>
+        {({ isValid }) => {
+          return (
+            <Form>
+              <TextField name="name" label="Name" />
+              <TextField name="image" label="Avatar url" />
+              <TagField
+                name="badges"
+                label="Badges"
+                options={badges}
+                displayKey="name"
+              />
+              <Button
+                color="secondary"
+                type="button"
+                onClick={goToUsersPage}
+                className="mr-2"
+              >
+                Back
+              </Button>
+              <Button type="submit" disabled={!isValid}>
+                {id ? "Update" : "Create"}
+              </Button>
+            </Form>
+          );
+        }}
       </Formik>
     </Page>
   );

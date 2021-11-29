@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons/faSignOutAlt";
+import { getDataFromTokenModel } from "../../util/token";
 
 interface RouteConfig {
   link: string;
@@ -18,6 +19,7 @@ interface NavbarProps {
 }
 
 const Navbar: FC<NavbarProps> = ({ isLoggedIn, setToken }) => {
+  const email = getDataFromTokenModel("email");
   const routes: RouteConfig[] = [
     {
       link: "/home",
@@ -53,7 +55,7 @@ const Navbar: FC<NavbarProps> = ({ isLoggedIn, setToken }) => {
         ) : null}
 
         <div>
-          Welcome to Attrecto Academy
+          Welcome {email ? email : "to Attrecto Academy"}
           {isLoggedIn ? (
             <Button
               color="secondary"

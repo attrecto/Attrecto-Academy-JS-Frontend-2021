@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { BadgeModel } from "../../models/badge.model";
 import classNames from "classnames";
 import classes from "./Badge.module.scss";
+import { useHistory } from "react-router";
 
 interface BadgeProps {
   badge: BadgeModel;
@@ -10,8 +11,16 @@ interface BadgeProps {
 }
 
 const Badge: FC<BadgeProps> = ({ badge, small, className }) => {
+  const history = useHistory();
+
   return (
-    <div className={classNames(className)}>
+    <div
+      className={classNames(className)}
+      onClick={(event) => {
+        event.preventDefault();
+        history.push(`badge/${badge.id}`);
+      }}
+    >
       <div
         className={classNames(
           "d-flex box-shadow align-items-center",

@@ -6,14 +6,18 @@ import Users from "./pages/Users/Users";
 import Badges from "./pages/Badges/Badges";
 import User from "./pages/User/User";
 import Login from "./pages/Login/Login";
+import { getDataFromTokenModel } from "./util/token";
+import BadgePage from "./pages/BadgePage/BadgePage";
 
 interface AppState {
   token: string | null;
+  role: Role | null;
 }
 
 class App extends Component<{}, AppState> {
   readonly state: AppState = {
     token: localStorage.getItem("auth-token"),
+    role: getDataFromTokenModel("role") as Role,
   };
 
   setToken = (token: string | null) => {
@@ -22,12 +26,11 @@ class App extends Component<{}, AppState> {
     } else {
       localStorage.removeItem("auth-token");
     }
-    this.setState({ token });
+    this.setState({ token, role: getDataFromTokenModel("role") as Role });
   };
 
   render() {
-    const { token } = this.state;
-
+    const { token, role } = this.state;
 
     return (
       <div>
@@ -51,9 +54,30 @@ class App extends Component<{}, AppState> {
             return token ? (
               <Switch>
                 <Route path="/users" component={Users} />
-                <Route path="/user/:id" component={User} />
-                <Route path="/user" component={User} />
+
+                <Route
+                  path="/user/:id"
+                  render={() =>
+                    role === "ADMIN" ? <User /> : <Redirect to={"/"} />
+                  }
+                />
+
+                <Route
+                  path="/user"
+                  render={() =>
+                    role === "ADMIN" ? <User /> : <Redirect to={"/"} />
+                  }
+                />
+
                 <Route path="/badges" component={Badges} />
+
+                <Route
+                  path="/badge/:id"
+                  render={() =>
+                    role === "ADMIN" ? <BadgePage /> : <Redirect to={"/"} />
+                  }
+                />
+
                 <Route path="/home" component={Home} />
                 <Redirect to="/home" />
               </Switch>

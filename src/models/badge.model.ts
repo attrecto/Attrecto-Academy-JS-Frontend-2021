@@ -5,3 +5,5 @@ export interface BadgeModel {
   description: string;
   createAt: Date;
 }
+
+export interface BadgeFormValues extends Omit<BadgeModel, "id" | "createAt"> {}
